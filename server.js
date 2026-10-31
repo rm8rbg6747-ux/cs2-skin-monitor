@@ -47,7 +47,48 @@ const server = http.createServer(async (req, res) => {
         : 'Добавьте LIS_API_URL и LIS_API_KEY в переменные окружения хостинга'
     });
   }
+  if (
+    url.pathname === '/api/csmarket-prices' ||
+    url.pathname === '/api/csmarket-orders'
+  ) {
+    const isOrders = url.pathname === '/api/csmarket-orders';
 
+    const endpoint = isOrders
+      ? 'https://market.csgo.com/api/v2/prices/orders/RUB.json'
+      : 'https://market.csgo.com/api/v2/prices/RUB.json';
+
+    try {
+      const upstream = await fetch(endpoint, {
+        headers: {
+          'Accept': 'application/json'
+        },
+        signal: AbortSignal.timeout(30000)
+      });
+
+      if (!upstream.ok) {
+        return send(res, upstream.status, {
+          error: `Market.CSGO вернул HTTP ${upstream.status}`
+        });
+      }
+
+      const body = await upstream.json();
+
+      if (body.success === false) {
+        return send(res, 502, {
+          error: 'Market.CSGO не подтвердил успешный ответ',
+          details: body
+        });
+      }
+
+      return send(res, 200, { data: body });
+
+    } catch (e) {
+      return send(res, 502, {
+        error: 'Не удалось получить данные Market.CSGO',
+        details: e.message
+      });
+    }
+  }
   if (url.pathname === '/api/lis-skins') {
     const endpoint = process.env.LIS_API_URL;
     const key = process.env.LIS_API_KEY;
