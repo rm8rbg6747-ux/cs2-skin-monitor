@@ -85,7 +85,12 @@ const server = http.createServer(async (req, res) => {
       'WWW-Authenticate': 'Basic realm="CS2 Skin Monitor", charset="UTF-8"',
       'Cache-Control': 'no-store'
     });
-    return res.end('Требуется авторизация');
+    res.writeHead(401, {
+  'WWW-Authenticate': 'Basic realm="CS2 Skin Monitor", charset="UTF-8"',
+  'Content-Type': 'text/plain; charset=utf-8',
+  'Cache-Control': 'no-store'
+});
+return res.end('Требуется авторизация');
   }
 
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
