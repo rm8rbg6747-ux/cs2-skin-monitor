@@ -1,1 +1,22 @@
-
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10131b"><title>CS2 Skin Monitor</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top"><div class="brand"><div class="logo">CS2</div><div><h1>Skin Monitor</h1><p>Сравнение цен на торговых площадках</p></div></div><div id="apiStatus" class="status"><i></i> Проверка API…</div></header>
+<main>
+<section class="hero"><div><div class="eyebrow">MARKET TRACKER · RUB</div><h2>Находи выгодные цены<br>на скины CS2</h2><p>Сравнивай предложения LIS-SKINS и CS.Market в одном месте.</p></div><div class="hero-mark">◈</div></section>
+<section class="stats"><article><span>Скинов в таблице</span><strong id="statTotal">0</strong></article><article><span>Есть на обеих площадках</span><strong id="statBoth">0</strong></article><article><span>Самая низкая цена</span><strong id="statLow">—</strong></article></section>
+<section class="panel"><div class="panel-head"><div><h3>Фильтры</h3><p>Укажи диапазон цены в рублях</p></div><button class="ghost" id="resetBtn">Сбросить</button></div>
+<div class="filters"><label>Цена от, ₽<input id="minPrice" type="number" min="0" placeholder="0"></label><label>Цена до, ₽<input id="maxPrice" type="number" min="0" placeholder="Например, 5000"></label><label class="wide">Название скина<input id="search" type="search" placeholder="Например, AK-47 | Redline"></label><label>Сортировка<select id="sort"><option value="low">Сначала дешёвые</option><option value="high">Сначала дорогие</option><option value="name">По названию</option><option value="saving">По разнице цен</option></select></label></div>
+<div class="toggles"><label class="check"><input id="onlyBoth" type="checkbox"> Только скины на обеих площадках</label><button class="primary" id="applyBtn">Применить фильтры</button></div></section>
+<section class="panel"><div class="panel-head"><div><h3>Источники данных</h3><p>Ключ LIS хранится на сервере, а не в браузере</p></div><span class="tag" id="lisTag">LIS: не настроен</span></div>
+<div class="source-grid"><div class="source"><div class="source-title"><b>LIS-SKINS</b><span class="dot" id="lisDot"></span></div><p id="lisMessage">Для подключения добавь API URL и ключ в переменные окружения сайта.</p><button class="secondary" id="loadLis">Загрузить LIS-SKINS</button></div><div class="source"><div class="source-title"><b>CS.Market</b><span class="dot muted"></span></div><p>Загрузи CSV-файл с предложениями CS.Market. Колонки должны содержать название и цену.</p><label class="upload secondary">Выбрать CSV<input id="csvFile" type="file" accept=".csv,text/csv"></label><small id="csvInfo">Файл ещё не загружен</small></div></div>
+<div class="notice">Важно: точный формат ответа и параметры LIS API зависят от документации и доступа твоего аккаунта. Если API вернёт неизвестную структуру, сайт покажет диагностику — потребуется подстроить адаптер.</div></section>
+<section class="panel table-panel"><div class="panel-head"><div><h3>Сравнение цен</h3><p id="tableCaption">Загрузи данные хотя бы с одной площадки</p></div><button class="ghost" id="exportBtn">Экспорт CSV</button></div><div class="table-wrap"><table><thead><tr><th>Скин</th><th>LIS-SKINS</th><th>CS.Market</th><th>Разница</th><th>Дешевле</th></tr></thead><tbody id="rows"><tr><td colspan="5" class="empty">Пока нет данных. Импортируй CSV CS.Market или подключи LIS API.</td></tr></tbody></table></div></section>
+<section class="panel diagnostics"><div class="panel-head"><div><h3>Диагностика</h3><p>Последние действия и ошибки</p></div><button class="ghost" id="clearLog">Очистить</button></div><pre id="log">Сайт запущен. Ожидаю данные.</pre></section>
+<footer>CS2 Skin Monitor · Неофициальный инструмент сравнения цен</footer>
+</main><script src="/app.js"></script></body></html>
