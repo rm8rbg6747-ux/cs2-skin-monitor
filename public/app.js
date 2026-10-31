@@ -97,7 +97,7 @@ async function loadLis() {
     }
 
     const data = await response.json();
-    state.lis = normalizeLis(data);
+    state.lis = normalizeLis(data.data);
 
     if (!state.lis.length) {
       throw new Error('Сервер ответил, но предложения не найдены. Проверь формат ответа API.');
